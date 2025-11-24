@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>DIEGO FARIA MOURÃO</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .gallery img {
+      width: 200px;
+      margin: 12px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    .big-view {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      z-index: 999;
+    }
+       .big-view img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-button">Back</a>
+
+<h1 style="margin:20px;">AUSPYB</h1>
+<h4 style="margin:20px;">Editorial, 23,5 x 30,5 cm, 170 gm/m2 paper, 90 pages </h4>
+<p style="margin:20px; word-wrap: break-word; width: 550px;">Accidental, Unfiltered & Sporadic Yet Passionately
+Beautiful is an editorial based on my habitat. Focusing on the individuals
+who compose it and who influnece the dispoisitions I apply to other parts 
+of my life. Each individual who appears has some sort of impact on my life. By
+discovering the people who compose me, a unique intimacy is created between reader & I.
+<br>
+<br>
+Accidental, Unfiltered & Sporadic Yet Passionately
+Beautiful est un livre éditorial basé sur mon habitat,
+axé sur les individus qui le composent et qui agissent
+sur les dispositions que j'applique dans d'autres
+parties de ma vie. Or, tout individu qui apparaît a eu un
+impact sur ma vie. En découvrant les personnes qui me
+composent, le lecteur se crée son idée de moi, créant
+une intimité entre lecteur et mon être.</p>
+<div class="gallery">
+  <!-- ADD YOUR IMAGES HERE -->
+  <img src="images/AFRONT-THUMB.jpg" data-full="images/A1-FRONT-FULL.jpg">
+  <img src="images/A1-THUMB.jpg" data-full="images/A1FULL.jpg">
+  <img src="images/A2-THUMB.jpg" data-full="images/A2-FULL.jpg">
+  <img src="images/A3-THUMB.jpg" data-full="images/A3-FULL.jpg">
+  <img src="images/A4-THUMB.jpg" data-full="images/A4-FULL.jpg">
+  <img src="images/A5-THUMB.jpg" data-full="images/A5-FULL.jpg">
+  <img src="images/A6-THUMB.jpg" data-full="images/A6-FULL.jpg">
+  <img src="images/A7-THUMB.jpg" data-full="images/A7-FULL.jpg">
+  <img src="images/A8-THUMB.jpg" data-full="images/A8-FULL.jpg">
+  <img src="images/A9-THUMB.jpg" data-full="images/A9-FULL.jpg">
+  <img src="images/A10-THUMB.jpg" data-full="images/A10-FULL">
+  <img src="images/A11-THUMB.jpg" data-full="images/A11-FULL.jpg">
+  <img src="images/A12-THUMB.jpg" data-full="images/A12-FULL.jpg">
+  <img src="images/A13-THUMB.jpg" data-full="images/A13-FULL.jpg">
+  <img src="images/ABACK-THUMB.jpg" data-full="images/ABACK-FULL.jpg">
+
+
+
+
+
+</div>
+
+<div class="big-view" id="bigView">
+  <img id="bigImage">
+</div>
+
+<script>
+  const bigView = document.getElementById('bigView');
+  const bigImage = document.getElementById('bigImage');
+
+  document.querySelectorAll('.gallery img').forEach(img => {
+    img.onclick = () => {
+      const fullImage = img.dataset.full; // use the bigger file
+      bigImage.src = fullImage
+      bigView.style.display = "flex";
+    };
+  });
+  //close on click anywhere
+
+  bigView.onclick = () => bigView.style.display = "none";
+</script>
+
+</body>
+</html>
