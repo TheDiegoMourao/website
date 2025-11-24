@@ -2,11 +2,23 @@ document.querySelectorAll('.folder').forEach(folder => {
 
   let offsetX = 0, offsetY = 0;
   let isDragging = false;
-  let hasMoved = false;   // NEW: track whether the folder moved
+  let hasMoved = false;
   let startX = 0, startY = 0;
 
+  // -------------------------------------------
+  // MOBILE: Tap opens folder, no drag at all
+  // -------------------------------------------
+  if (window.innerWidth < 768) {
+    folder.addEventListener("click", () => {
+      window.location.href = folder.dataset.link;
+    });
+    return; // Do NOT attach desktop drag events
+  }
+
+  // -------------------------------------------
+  // DESKTOP: Drag + safe click logic
+  // -------------------------------------------
   folder.addEventListener('mousedown', e => {
-    if (window.innerWidth < 768) return;  // disable drag on mobile
     isDragging = true;
     hasMoved = false;
 
@@ -16,7 +28,7 @@ document.querySelectorAll('.folder').forEach(folder => {
     offsetX = e.clientX - folder.offsetLeft;
     offsetY = e.clientY - folder.offsetTop;
 
-    folder.style.transition = "none"; // no animation during drag
+    folder.style.transition = "none";
   });
 
   document.addEventListener('mousemove', e => {
@@ -25,7 +37,6 @@ document.querySelectorAll('.folder').forEach(folder => {
     const dx = Math.abs(e.clientX - startX);
     const dy = Math.abs(e.clientY - startY);
 
-    // If moved more than 3px, count as dragging
     if (dx > 3 || dy > 3) {
       hasMoved = true;
     }
@@ -38,13 +49,16 @@ document.querySelectorAll('.folder').forEach(folder => {
     if (!isDragging) return;
     isDragging = false;
 
-    // If dragging happened → don't open the folder
+    // Click (no drag)
     if (!hasMoved) {
       window.location.href = folder.dataset.link;
+      return;
     }
-  });
-  
-  
-});
 
-// inside your mousedown event:
+    // Snap back to original position on desktop
+    folder.style.transition = "0.25s ease";
+    folder.style.left = folder.dataset.originalLeft;
+    folder.style.top = folder.dataset.originalTop;
+  });
+
+});
